@@ -1,0 +1,14 @@
+name: RustDesk Remote Desktop
+
+on:
+  workflow_dispatch:
+
+jobs:
+  desktop:
+    runs-on: windows-latest
+    steps:
+      - name: Mostrar sistema
+        run: |
+          systeminfo
+          Write-Host "Windows runner iniciado"
+        shell: pwsh
