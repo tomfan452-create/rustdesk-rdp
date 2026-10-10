@@ -1,0 +1,23 @@
+
+name: RustDesk Remote Desktop
+
+on:
+  workflow_dispatch:
+
+jobs:
+  desktop:
+    runs-on: windows-latest
+    steps:
+      - name: Descargar RustDesk
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = "Stop"
+          $url = "https://github.com/rustdesk/rustdesk/releases/latest/download/rustdesk-1.4.3-x86_64.exe"
+          $file = "$env:RUNNER_TEMP\rustdesk.exe"
+          Invoke-WebRequest -Uri $url -OutFile $file
+          if ((Get-Item $file).Length -lt 1000000) {
+            throw "El archivo descargado parece incompleto"
+          }
+          Write-Host "RustDesk descargado correctamente"
+          Write-Host "Ruta: $file"
+          
